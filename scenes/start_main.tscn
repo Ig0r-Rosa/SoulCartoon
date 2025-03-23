@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://pro4h7knrbbc"]
+
+[ext_resource type="ArrayMesh" uid="uid://b56uraav2ekgn" path="res://assets/kenney_graveyard-kit/Models/OBJ format/character-vampire.obj" id="1_chdcb"]
+[ext_resource type="Script" uid="uid://d2cdccpaarjvk" path="res://scripts/player.gd" id="1_ejky8"]
+[ext_resource type="PackedScene" uid="uid://xnv5m66b57hd" path="res://assets/kenney_fantasy-town-kit/Models/DAE format/stairsStoneHandrail.dae" id="3_ckaxk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ejky8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejky8"]
+albedo_color = Color(0.108199, 1, 0.203991, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ckaxk"]
+material = SubResource("StandardMaterial3D_ejky8")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ckaxk"]
+resource_local_to_scene = true
+margin = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejky8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ckaxk"]
+size = Vector3(1, 0.92688, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="Luz" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.77652, -1.1571e-08, -0.630093, 0.268141, 0.904931, 0.330454, 0.570191, -0.425558, 0.702697, -0.0471427, 2.1451, 1.96421)
+shadow_enabled = true
+
+[node name="Terreno" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_ejky8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terreno"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ckaxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terreno"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ckaxk")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_ejky8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = ExtResource("1_chdcb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.00593, 0)
+shape = SubResource("CapsuleShape3D_ejky8")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.24218, -0.289751)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(-1, -2.99004e-08, 8.21505e-08, 0, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, -0.839702, 5.05313, -4.98157)
+current = true
+
+[node name="Escada" type="StaticBody3D" parent="."]
+
+[node name="stairsStoneHandrail" parent="Escada" instance=ExtResource("3_ckaxk")]
+transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, -0.338953, 0, 11.128)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Escada"]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.338953, -1.44302, 8.56588)
+shape = SubResource("BoxShape3D_ckaxk")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Escada"]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.338953, 0.0939083, 9.72889)
+shape = SubResource("BoxShape3D_ckaxk")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Escada"]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.338953, 2.65852, 12.2654)
+shape = SubResource("BoxShape3D_ckaxk")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Escada"]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.338953, 3.92814, 13.4389)
+shape = SubResource("BoxShape3D_ckaxk")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Escada"]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.338953, 1.32059, 10.9451)
+shape = SubResource("BoxShape3D_ckaxk")
