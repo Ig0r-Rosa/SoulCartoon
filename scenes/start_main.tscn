@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://pro4h7knrbbc"]
+[gd_scene load_steps=13 format=3 uid="uid://pro4h7knrbbc"]
 
-[ext_resource type="ArrayMesh" uid="uid://b56uraav2ekgn" path="res://assets/kenney_graveyard-kit/Models/OBJ format/character-vampire.obj" id="1_chdcb"]
 [ext_resource type="Script" uid="uid://d2cdccpaarjvk" path="res://scripts/player.gd" id="1_ejky8"]
+[ext_resource type="ArrayMesh" uid="uid://dcuhjft21gx5h" path="res://assets/kenney_animated-characters-2/Model/characterMedium.obj" id="2_ckaxk"]
+[ext_resource type="Texture2D" uid="uid://c41cco7u20huc" path="res://assets/kenney_animated-characters-2/Skins/criminalMaleA.png" id="2_defnr"]
 [ext_resource type="PackedScene" uid="uid://xnv5m66b57hd" path="res://assets/kenney_fantasy-town-kit/Models/DAE format/stairsStoneHandrail.dae" id="3_ckaxk"]
+[ext_resource type="PackedScene" uid="uid://cyywyk46t0yt6" path="res://assets/kenney_animated-characters-2/Animations/idle.fbx" id="4_kfd1b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ejky8"]
 
@@ -16,6 +18,9 @@ material = SubResource("StandardMaterial3D_ejky8")
 resource_local_to_scene = true
 margin = 0.4
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kdvx"]
+albedo_texture = ExtResource("2_defnr")
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejky8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckaxk"]
@@ -24,7 +29,7 @@ size = Vector3(1, 0.92688, 1)
 [node name="Main" type="Node3D"]
 
 [node name="Luz" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.77652, -1.1571e-08, -0.630093, 0.268141, 0.904931, 0.330454, 0.570191, -0.425558, 0.702697, -0.0471427, 2.1451, 1.96421)
+transform = Transform3D(0.914628, 0.165363, -0.368932, 0.256804, 0.467177, 0.846048, 0.312262, -0.868562, 0.384828, -7.32788, 7.58018, 1.96421)
 shadow_enabled = true
 
 [node name="Terreno" type="StaticBody3D" parent="."]
@@ -42,11 +47,15 @@ shape = SubResource("WorldBoundaryShape3D_ckaxk")
 script = ExtResource("1_ejky8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-mesh = ExtResource("1_chdcb")
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_0kdvx")
+mesh = ExtResource("2_ckaxk")
+
+[node name="idle" parent="Player/MeshInstance3D" instance=ExtResource("4_kfd1b")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.00593, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
 shape = SubResource("CapsuleShape3D_ejky8")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Player"]
@@ -55,6 +64,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.24218, -0.289751)
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(-1, -2.99004e-08, 8.21505e-08, 0, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, -0.839702, 5.05313, -4.98157)
 current = true
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Player"]
+
+[node name="idle" parent="Player/Skeleton3D" instance=ExtResource("4_kfd1b")]
 
 [node name="Escada" type="StaticBody3D" parent="."]
 
